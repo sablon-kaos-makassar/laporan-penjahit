@@ -53,7 +53,9 @@
 
   /* ── TAB NAV ── */
   .tab-nav {
-    display: flex; overflow-x: auto; -webkit-overflow-scrolling: touch;
+    display: flex; overflow-x: auto; overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
     border-bottom: 1.5px solid var(--border);
     scrollbar-width: none; padding: 0 12px;
   }
