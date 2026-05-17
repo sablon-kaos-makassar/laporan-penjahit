@@ -26,11 +26,12 @@
     color: var(--ink);
     min-height: 100vh;
     overflow-x: hidden;
+    padding-top: 110px; /* fallback, JS akan hitung tepat */
   }
 
   /* ── STICKY HEADER WRAPPER ── */
   .sticky-header {
-    position: sticky; top: 0; z-index: 10;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 10;
     background: #fff;
   }
 
@@ -455,7 +456,14 @@
     document.getElementById('dark-toggle').classList.toggle('on');
   }
 
+  function fixHeaderOffset() {
+    const h = document.querySelector('.sticky-header').offsetHeight;
+    document.body.style.paddingTop = h + 'px';
+  }
+  window.addEventListener('resize', fixHeaderOffset);
+
   document.addEventListener('DOMContentLoaded', () => {
+    fixHeaderOffset();
     populateYears();
     setDefaultFilter();
     loadData();
