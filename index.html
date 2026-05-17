@@ -449,9 +449,23 @@
     to { transform: rotate(360deg); }
   }
 
-  /* ── RESPONSIVE ─────────────────────────────────────── */
+  /* ── SCROLL WRAP (semua ukuran) ─────────────────────────── */
+  .table-scroll-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .table-scroll-hint { display: none; }
+
+  /* ── TABLET ≤ 1024px ─────────────────────────────────────── */
+  @media (max-width: 1024px) {
+    .two-col {
+      grid-template-columns: 1fr !important;
+      gap: 12px;
+    }
+  }
+
+  /* ── MOBILE ≤ 700px ──────────────────────────────────────── */
   @media (max-width: 700px) {
-    /* Header */
     .header {
       padding: 20px 16px 18px;
       flex-direction: column;
@@ -462,98 +476,58 @@
     .header-title p  { font-size: 11px; }
     #header-period   { font-size: 11px !important; }
 
-    /* Filter bar */
-    .filter-bar {
-      padding: 12px 16px;
-      gap: 8px;
-    }
+    .filter-bar { padding: 12px 16px; gap: 8px; }
     .filter-sep { display: none; }
     .filter-bar label { font-size: 11px; }
-    .filter-bar select {
-      font-size: 13px;
-      padding: 7px 28px 7px 10px;
-      flex: 1;
-      min-width: 0;
-    }
-    .btn-filter {
-      width: 100%;
-      padding: 11px;
-      font-size: 14px;
-      margin-top: 2px;
-    }
+    .filter-bar select { font-size: 13px; padding: 7px 28px 7px 10px; flex: 1; min-width: 0; }
+    .btn-filter { width: 100%; padding: 11px; font-size: 14px; margin-top: 2px; }
 
-    /* Main padding */
     .main { padding: 16px 16px 48px; }
 
-    /* KPI — 2 kolom di mobile */
-    .kpi-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-bottom: 24px;
-    }
-    .kpi-card { padding: 16px 14px; }
-    .kpi-value { font-size: 26px; }
-    .kpi-sub   { font-size: 11px; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px; margin-bottom: 20px; }
+    .kpi-card { padding: 14px 12px; }
+    .kpi-value { font-size: 24px; }
+    .kpi-sub { font-size: 11px; }
     .kpi-label { font-size: 10px; }
     .kpi-badge { font-size: 10px; padding: 2px 8px; }
 
-    /* Award cards — stack vertikal */
-    .award-grid { grid-template-columns: 1fr; gap: 10px; margin-bottom: 24px; }
-    .award-card { padding: 18px 16px; gap: 14px; }
-    .award-icon { width: 44px; height: 44px; font-size: 24px; }
-    .award-name { font-size: 18px; }
+    .award-grid { grid-template-columns: 1fr !important; gap: 10px; margin-bottom: 20px; }
+    .award-card { padding: 16px 14px; gap: 12px; }
+    .award-icon { width: 42px; height: 42px; font-size: 22px; }
+    .award-name { font-size: 17px; }
 
-    /* Two col — stack */
-    .two-col { grid-template-columns: 1fr; gap: 12px; margin-bottom: 24px; }
-    .panel { padding: 16px 14px; }
+    .two-col { grid-template-columns: 1fr !important; gap: 12px; margin-bottom: 20px; }
+    .panel { padding: 14px 12px; }
+    .panel-title { font-size: 14px; margin-bottom: 14px; }
 
-    /* Tabel — font lebih kecil, scroll hint */
-    .penjahit-table { font-size: 12px; }
-    .penjahit-table th,
+    .penjahit-table { font-size: 12px; min-width: 460px; }
+    .penjahit-table th { padding: 7px 8px; font-size: 9px; }
     .penjahit-table td { padding: 8px 8px; }
     .penjahit-avatar { width: 24px; height: 24px; font-size: 10px; }
-    .pill { font-size: 9px; padding: 2px 6px; }
+    .pill { font-size: 9px; padding: 2px 5px; }
 
-    /* Bahan grid — 2 kolom */
-    .bahan-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-      margin-bottom: 24px;
+    .table-scroll-hint {
+      display: flex;
+      font-size: 10px;
+      color: var(--ink3);
+      justify-content: flex-end;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 6px;
     }
-    .bahan-chip { padding: 10px 12px; }
-    .bahan-chip-num { font-size: 14px; }
 
-    /* Section title */
+    .bahan-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 8px; margin-bottom: 20px; }
+    .bahan-chip { padding: 10px 10px; }
+    .bahan-chip-num { font-size: 14px; }
+    .bahan-chip-name { font-size: 11px; }
+
     .sec-title { font-size: 10px; margin-bottom: 10px; }
+    .kat-name { font-size: 13px; }
   }
 
   @media (max-width: 400px) {
-    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
-    .bahan-grid { grid-template-columns: 1fr; }
-    .award-card { flex-direction: column; align-items: flex-start; gap: 10px; }
-  }
-
-  /* ── TOUCH & SCROLL HINTS ───────────────────────────────── */
-  .table-scroll-wrap {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    border-radius: 8px;
-  }
-  .table-scroll-wrap::after {
-    content: '';
-    display: block;
-  }
-  @media (max-width: 700px) {
-    .table-scroll-hint {
-      font-size: 10px;
-      color: var(--ink3);
-      text-align: right;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 4px;
-    }
+    .bahan-grid { grid-template-columns: 1fr !important; }
+    .award-card { flex-direction: column; align-items: flex-start; }
   }
   /* STAGGER delays */
   .kpi-card:nth-child(1) { animation-delay: .05s; }
