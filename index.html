@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dashboard Jahitan</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  /* ── RESET & VARS ─────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #F5F0E8;
+    --surface:   #FDFAF4;
+    --border:    #D9D0BE;
+    --ink:       #1A1510;
+    --ink2:      #5C5347;
+    --ink3:      #9C9184;
+    --gold:      #C8962B;
+    --gold-lt:   #F0D99A;
+    --sage:      #5A7A5F;
+    --sage-lt:   #C4D9C6;
+    --clay:      #B05A3A;
+    --clay-lt:   #EDD0C4;
+    --teal:      #2D6B72;
+    --teal-lt:   #B8D8DB;
+    --accent:    #C8962B;
+    --radius:    12px;
+    --shadow:    0 2px 16px rgba(26,21,16,.08);
+    --shadow-lg: 0 8px 40px rgba(26,21,16,.12);
+  }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* ── HEADER ───────────────────────────────────────────────── */
+  .header {
+    background: var(--ink);
+    color: #F5F0E8;
+    padding: 28px 40px 24px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .header-title { line-height: 1; }
+  .header-title h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(26px, 4vw, 38px);
+    letter-spacing: -.5px;
+    color: var(--gold-lt);
+  }
+  .header-title p {
+    font-size: 13px;
+    color: #9C9184;
+    margin-top: 5px;
+    font-weight: 300;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+  }
+
+  /* ── FILTER BAR ───────────────────────────────────────────── */
+  .filter-bar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 40px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .filter-bar label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    color: var(--ink2);
+  }
+  .filter-bar select {
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 34px 8px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg);
+    color: var(--ink);
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%235C5347' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    cursor: pointer;
+    transition: border-color .2s;
+  }
+  .filter-bar select:focus { outline: none; border-color: var(--gold); }
+  .btn-filter {
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 9px 22px;
+    background: var(--ink);
+    color: var(--gold-lt);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    letter-spacing: .4px;
+    transition: background .2s, transform .1s;
+  }
+  .btn-filter:hover { background: #2d2820; }
+  .btn-filter:active { transform: scale(.97); }
+
+  .filter-sep { color: var(--border); font-size: 18px; }
+
+  /* ── MAIN LAYOUT ─────────────────────────────────────────── */
+  .main { padding: 32px 40px 60px; max-width: 1400px; }
+
+  /* ── SECTION TITLE ───────────────────────────────────────── */
+  .sec-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 15px;
+    color: var(--ink3);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sec-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── KPI CARDS ───────────────────────────────────────────── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+  .kpi-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow .2s, transform .2s;
+    animation: fadeUp .5s both;
+  }
+  .kpi-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    border-radius: 12px 0 0 12px;
+  }
+  .kpi-card.gold::before  { background: var(--gold); }
+  .kpi-card.sage::before  { background: var(--sage); }
+  .kpi-card.clay::before  { background: var(--clay); }
+  .kpi-card.teal::before  { background: var(--teal); }
+
+  .kpi-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--ink3);
+    margin-bottom: 8px;
+  }
+  .kpi-value {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 4vw, 40px);
+    line-height: 1;
+    color: var(--ink);
+  }
+  .kpi-sub {
+    font-size: 12px;
+    color: var(--ink3);
+    margin-top: 6px;
+  }
+  .kpi-badge {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .5px;
+  }
+  .badge-gold  { background: var(--gold-lt);  color: #7A5A12; }
+  .badge-sage  { background: var(--sage-lt);  color: #2E5033; }
+  .badge-clay  { background: var(--clay-lt);  color: #6B2F1C; }
+  .badge-teal  { background: var(--teal-lt);  color: #163640; }
+
+  /* ── AWARD CARDS ────────────────────────────────────────── */
+  .award-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+  .award-card {
+    background: var(--ink);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    color: #F5F0E8;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    animation: fadeUp .6s both;
+  }
+  .award-icon {
+    font-size: 36px;
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(200,150,43,.15);
+    border-radius: 50%;
+    border: 1.5px solid rgba(200,150,43,.3);
+  }
+  .award-info { flex: 1; }
+  .award-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .award-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: #F0D99A;
+    line-height: 1.1;
+  }
+  .award-detail {
+    font-size: 12px;
+    color: #9C9184;
+    margin-top: 5px;
+  }
+
+  /* ── TWO COL ──────────────────────────────────────────────── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 20px;
+    margin-bottom: 36px;
+  }
+  @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* ── PANEL ───────────────────────────────────────────────── */
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    animation: fadeUp .7s both;
+  }
+  .panel-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 17px;
+    color: var(--ink);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .panel-title span { font-size: 18px; }
+
+  /* ── KATEGORI BARS ───────────────────────────────────────── */
+  .kat-item { margin-bottom: 14px; }
+  .kat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 5px;
+  }
+  .kat-name { font-size: 13px; font-weight: 600; color: var(--ink); }
+  .kat-num  { font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 500; color: var(--ink2); }
+  .bar-track {
+    height: 8px;
+    background: var(--bg);
+    border-radius: 99px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 1s cubic-bezier(.4,0,.2,1);
+  }
+  .fill-teal { background: var(--teal); }
+  .fill-sage { background: var(--sage); }
+  .fill-clay { background: var(--clay); }
+  .fill-gold { background: var(--gold); }
+
+  /* ── PENJAHIT TABLE ───────────────────────────────────────── */
+  .penjahit-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .penjahit-table th {
+    text-align: left;
+    padding: 8px 12px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--ink3);
+    border-bottom: 1.5px solid var(--border);
+    background: var(--bg);
+  }
+  .penjahit-table th:not(:first-child) { text-align: right; }
+  .penjahit-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--ink);
+    vertical-align: middle;
+  }
+  .penjahit-table td:not(:first-child) {
+    text-align: right;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+  }
+  .penjahit-table tr:last-child td { border-bottom: none; }
+  .penjahit-table tr:hover td { background: var(--bg); }
+  .penjahit-name {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .penjahit-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: var(--ink);
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .pill {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .pill-teal { background: var(--teal-lt); color: var(--teal); }
+  .pill-sage { background: var(--sage-lt); color: var(--sage); }
+  .pill-clay { background: var(--clay-lt); color: var(--clay); }
+
+  /* ── BAHAN DETAIL ─────────────────────────────────────────── */
+  .bahan-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+    margin-bottom: 36px;
+  }
+  .bahan-chip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    animation: fadeUp .5s both;
+  }
+  .bahan-chip-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink2);
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .bahan-chip-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ink);
+    flex-shrink: 0;
+  }
+  .bahan-chip-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── LOADING / ERROR ─────────────────────────────────────── */
+  .loading {
+    text-align: center;
+    padding: 60px;
+    color: var(--ink3);
+  }
+  .loading-spinner {
+    width: 36px; height: 36px;
+    border: 3px solid var(--border);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+    margin: 0 auto 16px;
+  }
+  .error-msg {
+    background: #FFF0ED;
+    border: 1px solid #F5C0B0;
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    color: var(--clay);
+    font-size: 14px;
+  }
+
+  /* ── ANIMATIONS ──────────────────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* ── RESPONSIVE ─────────────────────────────────────────── */
+  @media (max-width: 700px) {
+    .header, .filter-bar, .main { padding-left: 20px; padding-right: 20px; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .award-grid { grid-template-columns: 1fr; }
+  }
+
+  /* STAGGER delays */
+  .kpi-card:nth-child(1) { animation-delay: .05s; }
+  .kpi-card:nth-child(2) { animation-delay: .1s; }
+  .kpi-card:nth-child(3) { animation-delay: .15s; }
+  .kpi-card:nth-child(4) { animation-delay: .2s; }
+  .kpi-card:nth-child(5) { animation-delay: .25s; }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ────────────────────────────────────────────── -->
+<div class="header">
+  <div class="header-title">
+    <h1>Dashboard Jahitan</h1>
+    <p>Rekap produksi &amp; performa penjahit</p>
+  </div>
+  <div id="header-period" style="font-family:'DM Mono',monospace;font-size:13px;color:#9C9184;"></div>
+</div>
+
+<!-- ── FILTER BAR ────────────────────────────────────────── -->
+<div class="filter-bar">
+  <label>Bulan</label>
+  <select id="sel-bulan">
+    <option value="">Semua</option>
+    <option value="1">Januari</option>
+    <option value="2">Februari</option>
+    <option value="3">Maret</option>
+    <option value="4">April</option>
+    <option value="5">Mei</option>
+    <option value="6">Juni</option>
+    <option value="7">Juli</option>
+    <option value="8">Agustus</option>
+    <option value="9">September</option>
+    <option value="10">Oktober</option>
+    <option value="11">November</option>
+    <option value="12">Desember</option>
+  </select>
+  <span class="filter-sep">|</span>
+  <label>Tahun</label>
+  <select id="sel-tahun"></select>
+  <button class="btn-filter" onclick="loadData()">Tampilkan</button>
+</div>
+
+<!-- ── MAIN ───────────────────────────────────────────────── -->
+<div class="main" id="main-content">
+  <div class="loading" id="loading-state">
+    <div class="loading-spinner"></div>
+    <div style="font-size:14px;">Memuat data...</div>
+  </div>
+  <div id="dashboard-content" style="display:none;"></div>
+</div>
+
+<script>
+  // ════════════════════════════════════════════════════
+  // ⚙️  GANTI URL INI DENGAN WEB APP URL APPS SCRIPT ANDA
+  // ════════════════════════════════════════════════════
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/GANTI_DENGAN_URL_DEPLOYMENT_ANDA/exec";
+
+  const BULAN_NAMES = ["","Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+  const KAT_CONFIG = {
+    totebag: { label: "Totebag",  color: "teal", fillClass: "fill-teal", badgeClass: "badge-teal", pillClass: "pill-teal" },
+    topi:    { label: "Topi",     color: "sage", fillClass: "fill-sage", badgeClass: "badge-sage", pillClass: "pill-sage" },
+    celemek: { label: "Celemek",  color: "clay", fillClass: "fill-clay", badgeClass: "badge-clay", pillClass: "pill-clay" },
+  };
+
+  // ── Init ────────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', () => {
+    populateYears();
+    setDefaultFilter();
+    loadData();
+  });
+
+  function populateYears() {
+    const sel = document.getElementById('sel-tahun');
+    const cur = new Date().getFullYear();
+    for (let y = cur; y >= cur - 3; y--) {
+      const opt = document.createElement('option');
+      opt.value = y;
+      opt.textContent = y;
+      sel.appendChild(opt);
+    }
+  }
+
+  function setDefaultFilter() {
+    const now = new Date();
+    document.getElementById('sel-bulan').value = now.getMonth() + 1;
+    document.getElementById('sel-tahun').value = now.getFullYear();
+  }
+
+  // ── Fetch ────────────────────────────────────────────
+  async function loadData() {
+    showLoading(true);
+    const bulan = document.getElementById('sel-bulan').value;
+    const tahun = document.getElementById('sel-tahun').value;
+
+    const url = `${APPS_SCRIPT_URL}?bulan=${bulan}&tahun=${tahun}`;
+
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      renderDashboard(data);
+    } catch (err) {
+      showError(err.message);
+    }
+  }
+
+  function showLoading(on) {
+    document.getElementById('loading-state').style.display = on ? 'block' : 'none';
+    document.getElementById('dashboard-content').style.display = on ? 'none' : 'block';
+  }
+
+  function showError(msg) {
+    document.getElementById('loading-state').style.display = 'none';
+    document.getElementById('dashboard-content').style.display = 'block';
+    document.getElementById('dashboard-content').innerHTML =
+      `<div class="error-msg">⚠️ Gagal memuat data: ${msg}<br><small>Pastikan Apps Script URL sudah benar dan sudah di-deploy sebagai Web App.</small></div>`;
+  }
+
+  // ── Render ────────────────────────────────────────────
+  function renderDashboard(d) {
+    const bulanLabel = d.filter.bulan ? BULAN_NAMES[d.filter.bulan] : "Semua Bulan";
+    const tahunLabel = d.filter.tahun || "";
+    document.getElementById('header-period').textContent = `${bulanLabel} ${tahunLabel}`;
+
+    const totalKat = d.kategori.totebag + d.kategori.topi + d.kategori.celemek || 1;
+
+    const html = `
+      <!-- KPI CARDS -->
+      <div class="sec-title">Ringkasan</div>
+      <div class="kpi-grid">
+        <div class="kpi-card gold">
+          <div class="kpi-label">Total Potongan</div>
+          <div class="kpi-value">${fmt(d.totalPotongan)}</div>
+          <div class="kpi-sub">semua bahan</div>
+        </div>
+        <div class="kpi-card teal">
+          <div class="kpi-label">Totebag</div>
+          <div class="kpi-value">${fmt(d.kategori.totebag)}</div>
+          <div class="kpi-sub">${pct(d.kategori.totebag, totalKat)}% dari total</div>
+          <div class="kpi-badge badge-teal">Kanvas</div>
+        </div>
+        <div class="kpi-card sage">
+          <div class="kpi-label">Topi</div>
+          <div class="kpi-value">${fmt(d.kategori.topi)}</div>
+          <div class="kpi-sub">${pct(d.kategori.topi, totalKat)}% dari total</div>
+          <div class="kpi-badge badge-sage">Topi</div>
+        </div>
+        <div class="kpi-card clay">
+          <div class="kpi-label">Celemek</div>
+          <div class="kpi-value">${fmt(d.kategori.celemek)}</div>
+          <div class="kpi-sub">${pct(d.kategori.celemek, totalKat)}% dari total</div>
+          <div class="kpi-badge badge-clay">Lainnya</div>
+        </div>
+        <div class="kpi-card gold">
+          <div class="kpi-label">Jumlah Penjahit</div>
+          <div class="kpi-value">${d.jumlahPenjahit}</div>
+          <div class="kpi-sub">${d.namaPenjahit.join(', ')}</div>
+        </div>
+      </div>
+
+      <!-- AWARD CARDS -->
+      <div class="sec-title">Penghargaan Bulan Ini</div>
+      <div class="award-grid">
+        ${d.penjahitTerbaik ? `
+        <div class="award-card">
+          <div class="award-icon">🏆</div>
+          <div class="award-info">
+            <div class="award-label">Penjahit Terbaik</div>
+            <div class="award-name">${d.penjahitTerbaik}</div>
+            <div class="award-detail">Jahitan terbanyak bulan ini</div>
+          </div>
+        </div>` : ''}
+        ${d.penjahitTercepat ? `
+        <div class="award-card">
+          <div class="award-icon">⚡</div>
+          <div class="award-info">
+            <div class="award-label">Penjahit Tercepat</div>
+            <div class="award-name">${d.penjahitTercepat.nama}</div>
+            <div class="award-detail">Rata-rata ${d.penjahitTercepat.rataHari} hari / order</div>
+          </div>
+        </div>` : ''}
+      </div>
+
+      <!-- KATEGORI + PENJAHIT -->
+      <div class="two-col">
+        <!-- Distribusi Kategori -->
+        <div class="panel">
+          <div class="panel-title"><span>📊</span> Distribusi Kategori</div>
+          ${['totebag','topi','celemek'].map(k => `
+            <div class="kat-item">
+              <div class="kat-header">
+                <span class="kat-name">${KAT_CONFIG[k].label}</span>
+                <span class="kat-num">${fmt(d.kategori[k])}</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill ${KAT_CONFIG[k].fillClass}" style="width:${pct(d.kategori[k], totalKat)}%"></div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <!-- Tabel Penjahit -->
+        <div class="panel">
+          <div class="panel-title"><span>🧵</span> Performa Penjahit</div>
+          <div style="overflow-x:auto;">
+            <table class="penjahit-table">
+              <thead>
+                <tr>
+                  <th>Penjahit</th>
+                  <th>Total</th>
+                  <th><span class="pill pill-teal">Totebag</span></th>
+                  <th><span class="pill pill-sage">Topi</span></th>
+                  <th><span class="pill pill-clay">Celemek</span></th>
+                  <th>Rata Hari</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${d.penjahit.sort((a,b)=>b.total-a.total).map((p,i) => `
+                <tr>
+                  <td>
+                    <div class="penjahit-name">
+                      <div class="penjahit-avatar" style="${i===0?'background:var(--gold);':'background:var(--border);color:var(--ink2);'}">
+                        ${p.nama.charAt(0).toUpperCase()}
+                      </div>
+                      ${p.nama}
+                    </div>
+                  </td>
+                  <td><strong>${fmt(p.total)}</strong></td>
+                  <td>${fmt(p.totebag)}</td>
+                  <td>${fmt(p.topi)}</td>
+                  <td>${fmt(p.celemek)}</td>
+                  <td>${p.rataHariPengerjaan ? p.rataHariPengerjaan + 'h' : '—'}</td>
+                </tr>`).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- DETAIL BAHAN -->
+      <div class="sec-title">Detail Bahan</div>
+      <div class="bahan-grid">
+        ${d.bahanDetail.sort((a,b)=>b.jumlah-a.jumlah).map(b => {
+          const cfg = KAT_CONFIG[b.kategori];
+          return `
+          <div class="bahan-chip">
+            <div class="bahan-chip-dot" style="background:var(--${cfg.color})"></div>
+            <div class="bahan-chip-name" title="${b.nama}">${b.nama}</div>
+            <div class="bahan-chip-num">${fmt(b.jumlah)}</div>
+          </div>`;
+        }).join('')}
+      </div>
+    `;
+
+    document.getElementById('dashboard-content').innerHTML = html;
+    showLoading(false);
+
+    // Animate bars after render
+    setTimeout(() => {
+      document.querySelectorAll('.bar-fill').forEach(el => {
+        const w = el.style.width;
+        el.style.width = '0';
+        requestAnimationFrame(() => { el.style.width = w; });
+      });
+    }, 50);
+  }
+
+  // ── Helpers ──────────────────────────────────────────
+  function fmt(n) { return Number(n || 0).toLocaleString('id-ID'); }
+  function pct(a, b) { return b ? Math.round((a/b)*100) : 0; }
+</script>
+</body>
+</html>
