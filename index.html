@@ -340,9 +340,11 @@
 <div class="tab-nav">
   <button class="tab-btn" onclick="switchTab('presensi',this)">📅 Presensi</button>
   <button class="tab-btn active" onclick="switchTab('penjahit',this)">✂️ Penjahit</button>
+ <button class="tab-btn" onclick="switchTab('inventori',this)">📦 Stok Barang</button>
+ <button class="tab-btn" onclick="switchTab('produksi',this)">📋 Orderan</button>
   <button class="tab-btn" onclick="switchTab('keuangan',this)">💰 Keuangan</button>
-  <button class="tab-btn" onclick="switchTab('inventori',this)">📦 Inventori</button>
-  <button class="tab-btn" onclick="switchTab('produksi',this)">🏭 Produksi</button>
+  <button class="tab-btn" onclick="switchTab('alat-bahan')">🧰 Alat & Bahan</button>
+  
 </div>
 
 </div><!-- /sticky-header -->
@@ -441,8 +443,9 @@
   const links = {
     'presensi' : 'https://sablon-kaos-makassar.github.io/presensi-karyawan',
     'keuangan' : 'https://sablon-kaos-makassar.github.io/laporan-keuangan',
-    'inventori': 'https://sablon-kaos-makassar.github.io/inventori',
-    'produksi' : 'https://sablon-kaos-makassar.github.io/produksi',
+    'stok': 'https://sablon-kaos-makassar.github.io/stok-barang',
+    'orderan' : 'https://sablon-kaos-makassar.github.io/orderan',
+   'alat-bahan' ; 'https://sablon-kaos-makassar.github.io/alat-bahan',
   };
   if (links[id]) {
     window.location.href = links[id];
