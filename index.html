@@ -26,16 +26,14 @@
     color: var(--ink);
     min-height: 100vh;
     overflow-x: hidden;
-    padding-top: 110px; /* fallback, JS akan hitung tepat */
+    padding-top: 110px;
   }
 
-  /* ── STICKY HEADER WRAPPER ── */
   .sticky-header {
     position: fixed; top: 0; left: 0; right: 0; z-index: 10;
     background: #fff;
   }
 
-  /* ── TOP BAR ── */
   .topbar {
     display: flex; align-items: center; justify-content: space-between;
     padding: 18px 20px 14px;
@@ -51,7 +49,6 @@
   }
   .hamburger svg { width: 20px; height: 20px; stroke: var(--orange); stroke-width: 2.2; fill: none; stroke-linecap: round; }
 
-  /* ── TAB NAV ── */
   .tab-nav {
     display: flex; overflow-x: auto; overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
@@ -74,7 +71,6 @@
   .tab-btn.active { color: var(--orange); border-bottom-color: var(--orange); }
   .tab-btn:hover:not(.active) { color: var(--ink2); }
 
-  /* ── TAB PAGES ── */
   .tab-page { display: none; }
   .tab-page.active { display: block; }
   .placeholder {
@@ -84,7 +80,6 @@
   }
   .placeholder-icon { font-size: 40px; }
 
-  /* ── FILTER BAR ── */
   .filter-bar {
     background: #fff; border-bottom: 1px solid var(--border);
     padding: 11px 16px; display: flex; align-items: center; gap: 8px;
@@ -112,16 +107,13 @@
   .btn-filter:hover { background: var(--orange-dk); }
   .btn-filter:active { transform: scale(.97); }
 
-  /* ── MAIN ── */
   .main { padding: 20px 16px 80px; }
 
-  /* ── SECTION TITLE ── */
   .sec-title {
     font-size: 10px; font-weight: 700; color: var(--ink3);
     text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px;
   }
 
-  /* ── KPI CARDS ── */
   .kpi-grid {
     display: grid; grid-template-columns: repeat(2,1fr);
     gap: 10px; margin-bottom: 24px;
@@ -138,7 +130,6 @@
   .kpi-value { font-size: clamp(24px,6vw,34px); font-weight: 800; line-height: 1; color: var(--ink); }
   .kpi-sub   { font-size: 11px; color: var(--ink3); margin-top: 5px; line-height: 1.4; }
 
-  /* ── AWARD CARDS ── */
   .award-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 24px; }
   .award-card {
     background: var(--orange); border-radius: var(--radius);
@@ -154,7 +145,6 @@
   .award-name  { font-size: 19px; font-weight: 800; color: #fff; line-height: 1.1; }
   .award-detail{ font-size: 12px; color: rgba(255,255,255,.65); margin-top: 3px; }
 
-  /* ── PANEL ── */
   .panel {
     background: #fff; border-radius: var(--radius);
     padding: 16px 14px; margin-bottom: 14px;
@@ -162,7 +152,6 @@
   }
   .panel-title { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 16px; display: flex; align-items: center; gap: 7px; }
 
-  /* ── KATEGORI BARS ── */
   .kat-item { margin-bottom: 14px; }
   .kat-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
   .kat-name { font-size: 13px; font-weight: 600; color: var(--ink); }
@@ -173,7 +162,6 @@
   .fill-teal   { background: #2BC4B4; }
   .fill-blue   { background: #5B8DEF; }
 
-  /* ── PENJAHIT TABLE ── */
   .table-scroll-hint { font-size: 10px; color: var(--ink3); text-align: right; margin-bottom: 6px; }
   .table-scroll-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .penjahit-table { width: 100%; min-width: 440px; border-collapse: collapse; font-size: 12px; }
@@ -199,7 +187,6 @@
   .pill-teal   { background: #E6FAF8; color: #1A9E90; }
   .pill-blue   { background: #EEF3FE; color: #3B6FD4; }
 
-  /* ── BAHAN GRID ── */
   .bahan-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; margin-bottom: 20px; }
   .bahan-chip {
     background: #FAFAFA; border-radius: 12px; padding: 12px;
@@ -209,7 +196,6 @@
   .bahan-chip-name { font-size: 11px; font-weight: 600; color: var(--ink2); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .bahan-chip-num  { font-family: 'DM Mono',monospace; font-size: 14px; font-weight: 500; color: var(--ink); flex-shrink: 0; }
 
-  /* ── LOADING / ERROR ── */
   .loading { text-align: center; padding: 60px 20px; color: var(--ink3); }
   .loading-spinner {
     width: 34px; height: 34px; border: 3px solid #F0F0F0;
@@ -221,7 +207,6 @@
     padding: 16px; color: #B03A20; font-size: 13px; line-height: 1.5;
   }
 
-  /* ── SLIDE MENU ── */
   .menu-overlay {
     display: none; position: fixed; inset: 0;
     background: rgba(0,0,0,.35); z-index: 100;
@@ -297,7 +282,6 @@
     padding-top: 14px; margin-top: 4px;
   }
 
-  /* ── DESKTOP ── */
   @media (min-width: 700px) {
     .topbar { padding: 20px 32px 16px; }
     .tab-nav { padding: 0 24px; }
@@ -311,7 +295,6 @@
     .table-scroll-hint { display: none; }
   }
 
-  /* ── ANIMATIONS ── */
   @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
   @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
   @keyframes spin   { to { transform:rotate(360deg); } }
@@ -325,36 +308,28 @@
 </head>
 <body>
 
-<!-- STICKY HEADER -->
 <div class="sticky-header">
-
-<!-- TOP BAR -->
-<div class="topbar">
-  <div class="brand">Monito<span>.</span></div>
-  <button class="hamburger" onclick="openMenu()" aria-label="Buka menu">
-    <svg viewBox="0 0 20 20"><line x1="2" y1="5" x2="18" y2="5"/><line x1="2" y1="10" x2="18" y2="10"/><line x1="2" y1="15" x2="18" y2="15"/></svg>
-  </button>
+  <div class="topbar">
+    <div class="brand">Monito<span>.</span></div>
+    <button class="hamburger" onclick="openMenu()" aria-label="Buka menu">
+      <svg viewBox="0 0 20 20"><line x1="2" y1="5" x2="18" y2="5"/><line x1="2" y1="10" x2="18" y2="10"/><line x1="2" y1="15" x2="18" y2="15"/></svg>
+    </button>
+  </div>
+  <div class="tab-nav">
+    <button class="tab-btn" onclick="switchTab('presensi',this)">📅 Presensi</button>
+    <button class="tab-btn active" onclick="switchTab('penjahit',this)">✂️ Penjahit</button>
+    <button class="tab-btn" onclick="switchTab('stok',this)">📦 Stok Barang</button>
+    <button class="tab-btn" onclick="switchTab('orderan',this)">📋 Orderan</button>
+    <button class="tab-btn" onclick="switchTab('produksi',this)">🏭 Produksi</button>
+    <button class="tab-btn" onclick="switchTab('keuangan',this)">💰 Keuangan</button>
+    <button class="tab-btn" onclick="switchTab('alat-bahan',this)">🧰 Alat & Bahan</button>
+  </div>
 </div>
 
-<!-- TAB NAV -->
-<div class="tab-nav">
-  <button class="tab-btn" onclick="switchTab('presensi',this)">📅 Presensi</button>
-  <button class="tab-btn active" onclick="switchTab('penjahit',this)">✂️ Penjahit</button>
- <button class="tab-btn" onclick="switchTab('stok',this)">📦 Stok Barang</button>
- <button class="tab-btn" onclick="switchTab('orderan',this)">📋 Orderan</button>
-  <button class="tab-btn" onclick="switchTab('keuangan',this)">💰 Keuangan</button>
-  <button class="tab-btn" onclick="switchTab('alat-bahan')">🧰 Alat & Bahan</button>
-  
-</div>
-
-</div><!-- /sticky-header -->
-
-<!-- TAB: PRESENSI -->
 <div class="tab-page" id="tab-presensi">
   <div class="placeholder"><div class="placeholder-icon">📅</div><div>Halaman Presensi</div></div>
 </div>
 
-<!-- TAB: PENJAHIT -->
 <div class="tab-page active" id="tab-penjahit">
   <div class="filter-bar">
     <select id="sel-bulan">
@@ -378,25 +353,28 @@
   </div>
 </div>
 
-<!-- TAB: KEUANGAN -->
-<div class="tab-page" id="tab-keuangan">
-  <div class="placeholder"><div class="placeholder-icon">💰</div><div>Halaman Keuangan</div></div>
+<div class="tab-page" id="tab-stok">
+  <div class="placeholder"><div class="placeholder-icon">📦</div><div>Halaman Stok Barang</div></div>
 </div>
 
-<!-- TAB: INVENTORI -->
-<div class="tab-page" id="tab-inventori">
-  <div class="placeholder"><div class="placeholder-icon">📦</div><div>Halaman Inventori</div></div>
+<div class="tab-page" id="tab-orderan">
+  <div class="placeholder"><div class="placeholder-icon">📋</div><div>Halaman Orderan</div></div>
 </div>
 
-<!-- TAB: PRODUKSI -->
 <div class="tab-page" id="tab-produksi">
   <div class="placeholder"><div class="placeholder-icon">🏭</div><div>Halaman Produksi</div></div>
 </div>
 
-<!-- OVERLAY -->
+<div class="tab-page" id="tab-keuangan">
+  <div class="placeholder"><div class="placeholder-icon">💰</div><div>Halaman Keuangan</div></div>
+</div>
+
+<div class="tab-page" id="tab-alat-bahan">
+  <div class="placeholder"><div class="placeholder-icon">🧰</div><div>Halaman Alat & Bahan</div></div>
+</div>
+
 <div class="menu-overlay" id="menu-overlay" onclick="closeMenu()"></div>
 
-<!-- SLIDE MENU -->
 <div class="slide-menu" id="slide-menu">
   <div class="slide-menu-header">
     <div>
@@ -407,9 +385,7 @@
       <svg viewBox="0 0 16 16"><line x1="2" y1="2" x2="14" y2="14"/><line x1="14" y1="2" x2="2" y2="14"/></svg>
     </button>
   </div>
-
   <div class="slide-menu-body"></div>
-
   <div class="slide-menu-footer">
     <button class="slide-item" onclick="alert('Pengaturan')">
       <div class="slide-item-left">
@@ -439,23 +415,25 @@
   };
   const AVATAR_COLORS = ["#E8603C","#2BC4B4","#5B8DEF","#F5A623","#9B59B6","#27AE60"];
 
-  function switchTab(id, btn) {
-  const links = {
-    'presensi' : 'https://sablon-kaos-makassar.github.io/presensi-karyawan',
-    'keuangan' : 'https://sablon-kaos-makassar.github.io/laporan-keuangan',
-    'stok': 'https://sablon-kaos-makassar.github.io/stok-barang',
-    'orderan' : 'https://sablon-kaos-makassar.github.io/orderan',
-   'alat-bahan' : 'https://sablon-kaos-makassar.github.io/alat-bahan',
+  const TAB_LINKS = {
+    'presensi'  : 'https://sablon-kaos-makassar.github.io/presensi-karyawan',
+    'stok'      : 'https://sablon-kaos-makassar.github.io/stok-barang',
+    'orderan'   : 'https://sablon-kaos-makassar.github.io/orderan',
+    'produksi'  : 'https://sablon-kaos-makassar.github.io/produksi/',
+    'keuangan'  : 'https://sablon-kaos-makassar.github.io/laporan-keuangan',
+    'alat-bahan': 'https://sablon-kaos-makassar.github.io/alat-bahan',
   };
-  if (links[id]) {
-    window.location.href = links[id];
-    return;
+
+  function switchTab(id, btn) {
+    if (TAB_LINKS[id]) {
+      window.location.href = TAB_LINKS[id];
+      return;
+    }
+    document.querySelectorAll('.tab-page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
   }
-  document.querySelectorAll('.tab-page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-' + id).classList.add('active');
-  btn.classList.add('active');
-}
 
   function openMenu() {
     document.getElementById('menu-overlay').classList.add('open');
