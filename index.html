@@ -593,6 +593,30 @@
         </table>` : `<div class="antrian-empty">✅ Semua jahitan sudah dikerjakan</div>`}
       </div>
 
+      <div class="sec-title">Sedang Dijahit · ${(d.onProses || []).length} item</div>
+      <div class="antrian-wrap">
+        ${(d.onProses && d.onProses.length > 0) ? `
+        <table class="antrian-table">
+          <thead>
+            <tr>
+              <th>No. PO</th>
+              <th>Jenis Bahan</th>
+              <th>Tgl Keluar</th>
+              <th>Jumlah</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${d.onProses.map(item => `
+            <tr>
+              <td><span class="antrian-nopo">${item.noPo || '—'}</span></td>
+              <td>${item.jenisBahan}</td>
+              <td style="font-size:11px;color:var(--ink3);">${item.tglKeluar}</td>
+              <td>${fmt(item.jumlah)}</td>
+            </tr>`).join('')}
+          </tbody>
+        </table>` : `<div class="antrian-empty">🪡 Tidak ada jahitan yang sedang diproses</div>`}
+      </div>
+
       ${(d.penjahitTerbaik || d.penjahitTercepat) ? `
       <div class="sec-title">Penghargaan Bulan Ini</div>
       <div class="award-grid">
