@@ -207,6 +207,39 @@
     padding: 16px; color: #B03A20; font-size: 13px; line-height: 1.5;
   }
 
+  /* ── BELUM DIJAHIT TABLE ── */
+  .antrian-wrap {
+    background: #fff; border-radius: var(--radius);
+    box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    margin-bottom: 24px; overflow: hidden;
+    animation: fadeUp .5s both;
+  }
+  .antrian-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .antrian-table th {
+    text-align: left; padding: 9px 14px;
+    font-size: 9px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1px;
+    color: var(--ink3); border-bottom: 1.5px solid var(--border); background: #FAFAFA;
+  }
+  .antrian-table th:last-child { text-align: right; }
+  .antrian-table td {
+    padding: 11px 14px; border-bottom: 1px solid var(--border);
+    color: var(--ink); vertical-align: middle;
+  }
+  .antrian-table td:last-child { text-align: right; font-family: 'DM Mono',monospace; }
+  .antrian-table tr:last-child td { border-bottom: none; }
+  .antrian-table tr:hover td { background: var(--orange-lt); }
+  .antrian-nopo {
+    display: inline-block; padding: 2px 8px;
+    background: var(--orange-lt); color: var(--orange);
+    border-radius: 6px; font-size: 11px; font-weight: 700;
+    font-family: 'DM Mono', monospace;
+  }
+  .antrian-empty {
+    padding: 32px; text-align: center;
+    color: var(--ink3); font-size: 13px;
+  }
+
   .menu-overlay {
     display: none; position: fixed; inset: 0;
     background: rgba(0,0,0,.35); z-index: 100;
@@ -536,6 +569,28 @@
           <div class="kpi-value">${d.jumlahPenjahit}</div>
           <div class="kpi-sub">${d.namaPenjahit.join(', ')}</div>
         </div>
+      </div>
+
+      <div class="sec-title">Jahitan Tersedia · ${(d.belumDijahit || []).length} item</div>
+      <div class="antrian-wrap">
+        ${(d.belumDijahit && d.belumDijahit.length > 0) ? `
+        <table class="antrian-table">
+          <thead>
+            <tr>
+              <th>No. PO</th>
+              <th>Jenis Bahan</th>
+              <th>Jumlah</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${d.belumDijahit.map(item => `
+            <tr>
+              <td><span class="antrian-nopo">${item.noPo || '—'}</span></td>
+              <td>${item.jenisBahan}</td>
+              <td>${fmt(item.jumlah)}</td>
+            </tr>`).join('')}
+          </tbody>
+        </table>` : `<div class="antrian-empty">✅ Semua jahitan sudah dikerjakan</div>`}
       </div>
 
       ${(d.penjahitTerbaik || d.penjahitTercepat) ? `
